@@ -25,11 +25,11 @@ type ModalType = 'Confirmar Presença' | 'Como Chegar' | 'Presentear' | null;
 const props = withDefaults(defineProps<Props>(), {
   bride: 'Melk',
   groom: 'Sabrina',
-  imageSrc: '/casal2.jpg',
+  imageSrc: '/casal.webp',
   eventDate: '18 de Outubro de 2025',
   eventTime: 'às 16:00 horas',
   eventLocation: 'Quinta das Alamandas',
-  eventAddress: 'São Luís, MA',
+  eventAddress: 'BR316, S/n - Titanlândia, Castanhal/PA',
   mapUrl: 'https://maps.app.goo.gl/GVRCReN39HQB1xd5A',
 })
 
@@ -167,14 +167,30 @@ function submitConfirmation(): void {
             </template>
 
             <template v-else-if="modalLabel === 'Como Chegar'">
-                <p class="mb-4 text-center">O evento será na <strong class="text-[var(--brand-fuchsia-dark)]">{{ props.eventLocation }}</strong>.</p>
-                <div class="w-full aspect-video rounded-lg overflow-hidden border border-[var(--bg-warm-medium)]">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.797371201507!2d-47.9651371!3d-1.2962011000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a5af2fb531cd01%3A0x92fdbbc9b2d9ae8b!2sHotel%20Quinta%20das%20Alamandas!5e0!3m2!1spt-BR!2sbr!4v1752772505244!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <a :href="props.mapUrl" target="_blank" class="inline-block mt-4 w-full bg-[var(--brand-fuchsia)] text-white px-6 py-2.5 rounded-lg hover:bg-[var(--brand-fuchsia-dark)] transition-colors font-semibold focus:outline-none focus:ring-2 focus:ring-[var(--brand-gold)] focus:ring-offset-2 text-center">
-                    Abrir no Google Maps
-                </a>
+              <p class="mb-4 text-center">
+                O evento será na <strong class="text-[var(--brand-fuchsia-dark)]">{{ props.eventLocation }}</strong>.
+              </p>
+
+              <div class="w-full aspect-video rounded-lg overflow-hidden border border-[var(--bg-warm-medium)]">
+                <iframe
+                  class="w-full h-full"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.797371201507!2d-47.9651371!3d-1.2962011000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a5af2fb531cd01%3A0x92fdbbc9b2d9ae8b!2sHotel%20Quinta%20das%20Alamandas!5e0!3m2!1spt-BR!2sbr!4v1752772505244!5m2!1spt-BR!2sbr"
+                  style="border:0;"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allowfullscreen
+                ></iframe>
+              </div>
+
+              <a
+                :href="props.mapUrl"
+                target="_blank"
+                class="inline-block mt-4 w-full bg-[var(--brand-fuchsia)] text-white px-6 py-2.5 rounded-lg hover:bg-[var(--brand-fuchsia-dark)] transition-colors font-semibold focus:outline-none focus:ring-2 focus:ring-[var(--brand-gold)] focus:ring-offset-2 text-center"
+              >
+                Abrir no Google Maps
+              </a>
             </template>
+
 
             <template v-else-if="modalLabel === 'Presentear'">
               <div class="text-center">
