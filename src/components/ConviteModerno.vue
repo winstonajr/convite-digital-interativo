@@ -3,7 +3,6 @@ import { ref, computed, type Component } from 'vue'
 import { Copy, Check, X } from 'lucide-vue-next'
 import Qrcode from 'qrcode.vue'
 
-// --- INTERFACES E TIPOS (Type Safety) ---
 interface Props {
   bride?: string;
   groom?: string;
@@ -21,9 +20,8 @@ interface ConfirmationForm {
   attending: 'Sim' | 'Não' | '';
 }
 
-type ModalType = 'Confirmar Presença' | 'Como Chegar' | 'Lista de Presentes' | null;
+type ModalType = 'Confirmar Presença' | 'Como Chegar' | 'Presentear' | null;
 
-// --- PROPS COM VALORES PADRÃO ---
 const props = withDefaults(defineProps<Props>(), {
   bride: 'Melk',
   groom: 'Sabrina',
@@ -32,13 +30,11 @@ const props = withDefaults(defineProps<Props>(), {
   eventTime: 'às 16:00 horas',
   eventLocation: 'Quinta das Alamandas',
   eventAddress: 'São Luís, MA',
-  mapUrl: 'https://maps.app.goo.gl/exemplo', // URL de exemplo
+  mapUrl: 'https://maps.app.goo.gl/GVRCReN39HQB1xd5A',
 })
 
-// --- VARIÁVEIS DE AMBIENTE (.env) ---
 const pixKey = import.meta.env.VITE_PIX_KEY;
 
-// --- ESTADO REATIVO DO COMPONENTE ---
 const modalLabel = ref<ModalType>(null)
 const copyButtonText = ref<string>('Copiar Código PIX')
 const isCopied = ref<boolean>(false)
@@ -46,10 +42,8 @@ const isCopied = ref<boolean>(false)
 const initialFormState: ConfirmationForm = { name: '', phone: '', attending: '' }
 const form = ref<ConfirmationForm>({ ...initialFormState })
 
-// --- PROPRIEDADES COMPUTADAS ---
 const copyIcon = computed<Component>(() => (isCopied.value ? Check : Copy))
 
-// --- MÉTODOS ---
 function openModal(label: ModalType): void {
   modalLabel.value = label
   isCopied.value = false
@@ -80,7 +74,6 @@ async function copyPix(): Promise<void> {
 }
 
 function submitConfirmation(): void {
-  // Lógica de envio do formulário (ex: para uma API)
   console.log('Confirmação enviada:', form.value)
   alert(`Obrigado por confirmar, ${form.value.name}! Sua resposta foi registrada.`)
   closeModal()
@@ -131,7 +124,7 @@ function submitConfirmation(): void {
         <div class="mt-6 flex justify-center items-center gap-6 text-sm">
           <a @click.prevent="openModal('Como Chegar')" href="#" class="text-[var(--text-main)] hover:text-[var(--brand-gold)] font-medium transition-colors">Como Chegar</a>
           <span class="text-[var(--brand-fuchsia)]/20">•</span>
-          <a @click.prevent="openModal('Lista de Presentes')" href="#" class="text-[var(--text-main)] hover:text-[var(--brand-gold)] font-medium transition-colors">Lista de Presentes</a>
+          <a @click.prevent="openModal('Presentear')" href="#" class="text-[var(--text-main)] hover:text-[var(--brand-gold)] font-medium transition-colors">Presentear</a>
         </div>
       </div>
     </div>
@@ -176,14 +169,14 @@ function submitConfirmation(): void {
             <template v-else-if="modalLabel === 'Como Chegar'">
                 <p class="mb-4 text-center">O evento será na <strong class="text-[var(--brand-fuchsia-dark)]">{{ props.eventLocation }}</strong>.</p>
                 <div class="w-full aspect-video rounded-lg overflow-hidden border border-[var(--bg-warm-medium)]">
-                    <iframe :src="props.mapUrl" class="w-full h-full" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.797371201507!2d-47.9651371!3d-1.2962011000000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a5af2fb531cd01%3A0x92fdbbc9b2d9ae8b!2sHotel%20Quinta%20das%20Alamandas!5e0!3m2!1spt-BR!2sbr!4v1752772505244!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
                 <a :href="props.mapUrl" target="_blank" class="inline-block mt-4 w-full bg-[var(--brand-fuchsia)] text-white px-6 py-2.5 rounded-lg hover:bg-[var(--brand-fuchsia-dark)] transition-colors font-semibold focus:outline-none focus:ring-2 focus:ring-[var(--brand-gold)] focus:ring-offset-2 text-center">
                     Abrir no Google Maps
                 </a>
             </template>
 
-            <template v-else-if="modalLabel === 'Lista de Presentes'">
+            <template v-else-if="modalLabel === 'Presentear'">
               <div class="text-center">
                 <p>Sua presença é nosso maior presente!</p>
                 <p class="mt-2">Se desejar, uma contribuição para nossa lua de mel nos fará muito felizes.</p>
@@ -208,12 +201,8 @@ function submitConfirmation(): void {
 </template>
 
 <style scoped>
-/* Importa as fontes do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Poppins:wght@400;600&family=Dancing+Script:wght@500&display=swap');
 
-/* Define as variáveis CSS para a paleta "Fúcsia + Tons Quentes".
-  Isso torna o componente autônomo e não requer configuração no tailwind.config.js.
-*/
 .invitation-wrapper {
   /* Cores Principais */
   --brand-fuchsia:      #d946ef; /* fuchsia-500 */
@@ -227,7 +216,6 @@ function submitConfirmation(): void {
   --text-main:          #57534e; /* stone-600 */
 }
 
-/* Animação do Modal (sem alterações) */
 .modal-fade-enter-active,
 .modal-fade-leave-active {
   transition: opacity 0.3s ease;
