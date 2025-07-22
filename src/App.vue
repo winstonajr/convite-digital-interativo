@@ -16,8 +16,8 @@ import { /*useToast,*/ ToastContainer } from './composables/useToast'
 
 // --- DADOS DO EVENTO (Poderia vir de uma API) ---
 const eventData = reactive({
-  bride: 'Sabrina',
-  groom: 'Melk',
+  bride: 'Melk',
+  groom: 'Sabrina',
   imageSrc: '/casal.webp',
   eventDate: '18 de Outubro de 2025',
   eventTime: 'às 16:00 horas',
