@@ -7,10 +7,18 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-// Carrega os ícones dinamicamente para não incluir todos no bundle final
-const iconComponent = defineAsyncComponent<Component>(() =>
-  import('lucide-vue-next').then((lucide) => lucide[props.name]),
-)
+const iconComponent = defineAsyncComponent<Component>(async () => {
+  const lucide = await import('lucide-vue-next')
+  const icons = lucide.icons as Record<string, Component> // Força o tipo correto
+
+  const icon = icons[props.name]
+
+  if (!icon) {
+    throw new Error(`Ícone "${props.name}" não encontrado em lucide-vue-next`)
+  }
+
+  return icon
+})
 </script>
 
 <template>
