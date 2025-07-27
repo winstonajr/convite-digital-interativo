@@ -12,9 +12,9 @@ import AppButton from './components/UI/AppButton.vue'
 import AppIcon from './components/UI/AppIcon.vue'
 
 // Composables
-import { /*useToast,*/ ToastContainer } from './composables/useToast'
+import { ToastContainer } from './composables/useToast'
 
-// --- DADOS DO EVENTO (Poderia vir de uma API) ---
+// --- DADOS DO EVENTO ---
 const eventData = reactive({
   bride: 'Melk',
   groom: 'Sabrina',
@@ -27,10 +27,9 @@ const eventData = reactive({
   mapLink: import.meta.env.VITE_MAP_LINK,
   pixKey: import.meta.env.VITE_PIX_KEY,
 })
-// --- CONTROLE DE ESTADO DA UI ---
+
 const isRevealed = ref(false)
 const activeModal = shallowRef<Component | null>(null)
-//const { showToast } = useToast()
 
 const modalProps = computed(() => {
   if (activeModal.value === ModalComoChegar) {
@@ -48,7 +47,7 @@ const modalProps = computed(() => {
 
 function revealInvitation() {
   isRevealed.value = true
-  document.body.style.overflow = 'auto' // Libera o scroll
+  document.body.style.overflow = 'auto'
 }
 
 function openModal(modalComponent: Component) {
@@ -62,12 +61,9 @@ function closeModal() {
 async function handleConfirmationSubmit(formData: { name: string }) {
   console.log('Recebido:', formData)
   await new Promise((resolve) => setTimeout(resolve, 1500))
-  //showToast(`Obrigado por confirmar, ${formData.name}!`, 'success')
-  closeModal()
 }
 
 onMounted(() => {
-  // UX: Impede o scroll antes do convite ser revelado
   document.body.style.overflow = 'hidden'
 })
 </script>
@@ -104,59 +100,57 @@ onMounted(() => {
         </div>
       </header>
 
-      <InvitationSection title="É com grande alegria que convidamos" icon="Heart">
-        <p class="text-center text-lg max-w-2xl mx-auto">
-          Para celebrar o capítulo mais esperado de nossa história de amor. Sua presença tornará
-          nosso dia ainda mais especial.
-        </p>
-        <div class="mt-12 text-center">
-          <AppButton @click="openModal(ModalConfirmacao)" variant="primary" size="large">
-            <AppIcon name="Check" class="mr-2" />
-            Confirmar Presença
-          </AppButton>
-          <p class="text-sm mt-2 text-stone-500">Confirme até 18/09/2025</p>
-        </div>
-      </InvitationSection>
-
-      <div
-        class="my-16 h-px bg-gradient-to-r from-transparent via-[var(--brand-gold)]/30 to-transparent w-2/3 mx-auto"
-      ></div>
-
-      <InvitationSection title="A Cerimônia" icon="Church">
-        <div class="text-center text-lg">
-          <p class="font-bold text-2xl text-[var(--brand-fuchsia-dark)]">
-            {{ eventData.eventDate }}
+      <div class="section-wrapper">
+        <InvitationSection title="É com grande alegria que convidamos" icon="Heart">
+          <p class="text-center text-lg max-w-2xl mx-auto">
+            Para celebrar o capítulo mais esperado de nossa história de amor. Sua presença tornará
+            nosso dia ainda mais especial.
           </p>
-          <p class="mt-1">{{ eventData.eventTime }}</p>
-          <p class="mt-6 font-semibold text-xl">{{ eventData.ceremonyLocation }}</p>
-          <p class="text-base text-stone-500">{{ eventData.ceremonyAddress }}</p>
-          <AppButton @click="openModal(ModalComoChegar)" variant="secondary" class="mt-6">
-            <AppIcon name="MapPin" class="mr-2" />
-            Ver no mapa
+          <div class="mt-12 text-center">
+            <AppButton @click="openModal(ModalConfirmacao)" variant="primary" size="large">
+              <AppIcon name="Check" class="mr-2" />
+              Confirmar Presença
+            </AppButton>
+            <p class="text-sm mt-2 text-stone-500">Confirme até 18/09/2025</p>
+          </div>
+        </InvitationSection>
+
+        <div class="divider"></div>
+
+        <InvitationSection title="A Cerimônia" icon="Church">
+          <div class="text-center text-lg">
+            <p class="font-bold text-2xl text-[var(--brand-fuchsia-dark)]">
+              {{ eventData.eventDate }}
+            </p>
+            <p class="mt-1">{{ eventData.eventTime }}</p>
+            <p class="mt-6 font-semibold text-xl">{{ eventData.ceremonyLocation }}</p>
+            <p class="text-base text-stone-500">{{ eventData.ceremonyAddress }}</p>
+            <AppButton @click="openModal(ModalComoChegar)" variant="secondary" class="mt-6">
+              <AppIcon name="MapPin" class="mr-2" />
+              Ver no mapa
+            </AppButton>
+          </div>
+        </InvitationSection>
+
+        <div class="divider"></div>
+
+        <InvitationSection title="Presentes" icon="Gift">
+          <p class="text-center text-lg max-w-2xl mx-auto">
+            Mais do que qualquer presente, queremos compartilhar esse momento com você. Mas, se
+            quiser nos dar um mimo, aceitamos com carinho uma ajuda na nossa lua de mel dos sonhos.
+          </p>
+          <AppButton @click="openModal(ModalPresentear)" variant="secondary" class="mt-6">
+            <AppIcon name="Gift" class="mr-2" />
+            Contribuir com nossa lua de mel
           </AppButton>
-        </div>
-      </InvitationSection>
+        </InvitationSection>
 
-      <div
-        class="my-16 h-px bg-gradient-to-r from-transparent via-[var(--brand-gold)]/30 to-transparent w-2/3 mx-auto"
-      ></div>
-
-      <InvitationSection title="Presentes" icon="Gift">
-        <p class="text-center text-lg max-w-2xl mx-auto">
-          Mais do que qualquer presente, queremos compartilhar esse momento com você. Mas, se quiser
-          nos dar um mimo, aceitamos com carinho uma ajuda na nossa lua de mel dos sonhos.
-        </p>
-        <AppButton @click="openModal(ModalPresentear)" variant="secondary" class="mt-6">
-          <AppIcon name="Gift" class="mr-2" />
-          Contribuir com nossa lua de mel
-        </AppButton>
-      </InvitationSection>
-
-      <footer class="py-16 text-center text-stone-500">
-        <p class="font-['Dancing_Script',_cursive] text-4xl text-[var(--brand-gold)]">
-          Esperamos por você!
-        </p>
-      </footer>
+        <footer class="py-16 text-center text-stone-500">
+          <p class="font-['Dancing_Script',_cursive] text-4xl text-[var(--brand-gold)]">
+            Esperamos por você!
+          </p>
+        </footer>
+      </div>
     </main>
 
     <ModalWrapper :is-open="!!activeModal" @close="closeModal">
@@ -171,7 +165,6 @@ onMounted(() => {
 </template>
 
 <style>
-/* Import de fontes globais (pode estar no main.css) */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@700&family=Poppins:wght@400;600&family=Dancing+Script:wght@500&display=swap');
 
 :root {
@@ -180,19 +173,22 @@ onMounted(() => {
   --brand-gold: #f59e0b;
   --card-bg: #fffbeb;
   --bg-warm-light: #fdf2f8;
-  --text-main: #44403c; /* stone-700 */
+  --text-main: #44403c;
 }
 
 body {
   background-color: var(--bg-warm-light);
   color: var(--text-main);
+  margin: 0;
 }
 
 .invitation-container {
   background-color: var(--card-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Estilos da Capa */
 .cover {
   position: fixed;
   inset: 0;
@@ -207,9 +203,9 @@ body {
 }
 .cover-content {
   max-width: 600px;
+  width: 100%;
 }
 
-/* Animação de fade */
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.7s ease-in-out;
@@ -219,12 +215,18 @@ body {
   opacity: 0;
 }
 
-/* Conteúdo Principal */
 .invitation-content {
-  max-width: 1000px;
-  margin: 0 auto;
+  flex: 1;
+  width: 100%;
   background-color: #ffffff;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.section-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 .main-header {
@@ -257,5 +259,13 @@ body {
   text-align: center;
   color: white;
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  padding: 0 1rem;
+}
+
+.divider {
+  margin: 4rem auto;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--brand-gold) 50%, transparent);
+  width: 80%;
 }
 </style>

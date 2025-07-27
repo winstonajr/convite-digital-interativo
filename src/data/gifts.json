@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "phrase": "Torço demais por esse amor! Vocês nasceram um pro outro. 💞",
+    "amount": 50,
+    "image": "/gift-1.webp"
+  },
+  {
+    "id": 2,
+    "phrase": "Sou fã desse casal! Que vocês riam juntos todos os dias e enfrentem tudo de mãos dadas. 🤝✨",
+    "amount": 75,
+    "image": "/gift-2.webp"
+  },
+  {
+    "id": 3,
+    "phrase": "Sinto que o amor de vocês inspira, fortalece e brilha. Que essa união dure para sempre. 💍❤️",
+    "amount": 100,
+    "image": "/gift-3.webp"
+  },
+  {
+    "id": 4,
+    "phrase": "Vejo em vocês o tipo de amor que edifica. Que cada detalhe dessa nova fase seja regado de graça e ternura. 🌷",
+    "amount": 150,
+    "image": "/gift-4.webp"
+  },
+  {
+    "id": 5,
+    "phrase": "Estar presente nesse momento já é especial, mas quero deixar esse gesto como sinal da minha alegria por ver vocês se casando. 🎉💑",
+    "amount": 200,
+    "image": "/gift-5.webp"
+  },
+  {
+    "id": 6,
+    "phrase": "Esse Pix é só uma forma de dizer que amo vocês e quero ver essa nova casa cheia de paz, fé e carinho. 🕊️🏡",
+    "amount": 300,
+    "image": "/gift-6.webp"
+  },
+  {
+    "id": 7,
+    "phrase": "Vocês são como resposta de oração um para o outro — e eu vibro de emoção por esse dia ter chegado. 🙏✨",
+    "amount": 400,
+    "image": "/gift-7.webp"
+  },
+  {
+    "id": 8,
+    "phrase": "Se eu pudesse, daria o mundo pra vocês. Mas deixo esse presente com todo meu coração e meu amor por esse casal lindo. 💝🌍",
+    "amount": 500,
+    "image": "/gift-1.webp"
+  },
+  {
+    "id": 9,
+    "phrase": "Presente do coração (valor livre)",
+    "amount": null,
+    "image": null
+  }
+]
