@@ -41,12 +41,11 @@ async function submitForm() {
     return
   }
   isSubmitting.value = true
-  const googleFormUrl =
-    'https://docs.google.com/forms/u/0/d/e/1FAIpQLSeN9LujFwHWLzL_xvOgNJmY_F0eBJDMeG75A_bcU9O2meBqzg/formResponse'
+  const googleFormUrl = import.meta.env.VITE_LINK_FORMS || ''
   const formData = new FormData()
-  formData.append('entry.947040223', name.value)
-  formData.append('entry.117035968', phone.value)
-  formData.append('entry.917586526', attending.value)
+  formData.append('entry.' + import.meta.env.VITE_ENTRY_NAME || '', name.value)
+  formData.append('entry.' + import.meta.env.VITE_ENTRY_PHONE || '', phone.value)
+  formData.append('entry.' + import.meta.env.PRESENT || '', attending.value)
 
   try {
     await fetch(googleFormUrl, { method: 'POST', body: formData, mode: 'no-cors' })
